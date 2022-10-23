@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { useTagStore } from './hooks';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export const TagInput = () => {
 	const [tagInput, updateTagInput] = useState('');
@@ -21,9 +26,15 @@ export const TagInput = () => {
 	};
 
 	return (
-		<div>
-			<input value={tagInput} onChange={handleOnChange} />
-			<button onClick={handleOnSubmit}>Add Tag</button>
-		</div>
+		<Row>
+			<Col>
+				<InputGroup>
+					<Form.Control placeholder="Tag" value={tagInput} onChange={handleOnChange} />
+				</InputGroup>
+			</Col>
+			<Col>
+				<Button onClick={handleOnSubmit}>Add Tag</Button>
+			</Col>
+		</Row>
 	);
 };

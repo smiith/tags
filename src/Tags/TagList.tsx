@@ -1,14 +1,22 @@
 import React from 'react';
 import { useTagStore } from './hooks';
-import { Tag } from './Tag';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export const TagList = () => {
 	const { tags, removeTagByIndex } = useTagStore();
 	return (
-		<ul>
-			{tags.map((tag, index) => (
-				<Tag key={`${tag}${index}`} tag={tag} onClick={() => removeTagByIndex(index)} />
-			))}
-		</ul>
+		<Row>
+			<Col xs={6} className="p-3">
+				<ListGroup>
+					{tags.map((tag, index) => (
+						<ListGroup.Item key={`${tag}${index}`} onClick={() => removeTagByIndex(index)}>
+							{tag}
+						</ListGroup.Item>
+					))}
+				</ListGroup>
+			</Col>
+		</Row>
 	);
 };
