@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Static tag list</title>
+		<style>
+			body {
+				background-color: black;
+			}
+
+			.Tags {
+				color: gold;
+			}
+
+			.Tags_list {
+				background-color: dimgrey;
+			}
+
+			.Tags_list-item {
+				color: gold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="Tags">
+			<ul id="tagList" class="Tags_list"></ul>
+		</div>
+		<script type="text/javascript">
+			const isNotEmptyString = (string) => string?.length > 0;
+
+			const extractTags = (inputString) => {
+				if (inputString.startsWith('#tags=')) {
+					const tags = inputString.replace('#tags=', '').split(',');
+					return tags.filter(isNotEmptyString);
+				}
+				return [];
+			};
+
+			const handleOnHashChange = () => {
+				const hash = window.location.hash;
+				const tags = extractTags(hash);
+
+				const ul = document.createElement('ul');
+				ul.setAttribute('id', 'tagList');
+				ul.setAttribute('class', 'Tags_list');
+
+				tags.forEach((tag) => {
+					const li = document.createElement('li');
+					li.setAttribute('class', 'Tags_list-item');
+
+					li.innerHTML = tag;
+
+					ul.appendChild(li);
+				});
+
+				const tagList = document.getElementById('tagList');
+				tagList.replaceWith(ul);
+			};
+			window.onhashchange = handleOnHashChange;
+			handleOnHashChange();
+		</script>
+	</body>
+</html>

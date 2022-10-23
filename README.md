@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Tags Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In the directory Results, you could find solutions for the main task and the first additional task.
+React part of tasks is stored in this repo.
+
 
 ## Available Scripts
 

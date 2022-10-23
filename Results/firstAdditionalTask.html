@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Static tag list</title>
+		<style>
+			body {
+				background-color: black;
+			}
+
+			.Tags {
+				color: gold;
+			}
+
+			.Tags_list {
+				background-color: dimgrey;
+			}
+
+			.Tags_list-item {
+				color: gold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="Tags">
+			<input id="tagInput" type="text" />
+			<button onclick="handleAddTagButtonClick()">Add Tag</button>
+			<ul id="tagList" class="Tags_list"></ul>
+		</div>
+		<script type="text/javascript">
+			const TAGS_TOKEN = '#tags=';
+
+			const extractTags = () => {
+				const hash = window.location.hash;
+
+				if (hash.startsWith(TAGS_TOKEN)) {
+					const tags = hash.replace(TAGS_TOKEN, '').split(',');
+					if (!tags.includes('')) {
+						return tags;
+					}
+				}
+				return [];
+			};
+
+			const storeTags = (tags) => {
+				const tagsString = tags.join(',');
+				window.location.hash = `${TAGS_TOKEN}${tagsString}`;
+			};
+
+			const handleOnClickTag = (tagIndex) => {
+				const tags = extractTags();
+				tags.splice(tagIndex, 1);
+				storeTags(tags);
+			};
+
+			const handleOnHashChange = () => {
+				const tags = extractTags();
+
+				const ul = document.createElement('ul');
+				ul.setAttribute('id', 'tagList');
+				ul.setAttribute('class', 'Tags_list');
+
+				tags.forEach((tag, tagIndex) => {
+					const li = document.createElement('li');
+					li.setAttribute('class', 'Tags_list-item');
+					li.setAttribute('onClick', `handleOnClickTag(${tagIndex})`);
+
+					li.innerHTML = tag;
+
+					ul.appendChild(li);
+				});
+
+				const tagList = document.getElementById('tagList');
+				tagList.replaceWith(ul);
+			};
+
+			const handleAddTagButtonClick = () => {
+				const tagInput = document.getElementById('tagInput');
+
+				const newTag = tagInput.value.replaceAll(',', '');
+				if (newTag.length === 0) {
+					return;
+				}
+
+				const tags = extractTags();
+
+				const hash = window.location.hash;
+				const isFirstTag = tags.length === 0;
+				window.location.hash = isFirstTag ? `${TAGS_TOKEN}${newTag}` : `${hash},${newTag}`;
+
+				tagInput.value = '';
+			};
+
+			window.onhashchange = handleOnHashChange;
+			handleOnHashChange();
+		</script>
+	</body>
+</html>
