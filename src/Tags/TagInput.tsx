@@ -6,7 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export const TagInput = () => {
+const TagInput = () => {
 	const [tagInput, updateTagInput] = useState('');
 	const { appendTag } = useTagStore();
 
@@ -38,3 +38,5 @@ export const TagInput = () => {
 		</Row>
 	);
 };
+
+export default TagInput;

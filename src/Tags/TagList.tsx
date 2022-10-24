@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export const TagList = () => {
+const TagList = () => {
 	const { tags, removeTagByIndex } = useTagStore();
 	return (
 		<Row>
@@ -20,3 +20,5 @@ export const TagList = () => {
 		</Row>
 	);
 };
+
+export default TagList;
